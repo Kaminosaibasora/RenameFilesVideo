@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Runtime.Remoting.Contexts;
 using System.Text.Json;
 
 namespace RenameFilesVideo.objects
@@ -32,15 +33,27 @@ namespace RenameFilesVideo.objects
                 {
                     Current = new
                     {
-                        Folder = root.GetProperty("Folder").GetString(),
-                        File = root.GetProperty("File").GetString(),
+                        Folder = root.GetProperty("Current").GetProperty("Folder").GetString(),
+                        File = root.GetProperty("Current").GetProperty("File").GetString(),
                     },
                     DataRename = new {
-                        SujetPrincipal = root.GetProperty("SujetPrinciapl").GetString(), // TODO : chercher type liste
-                        SujetSecondaire = root.GetProperty("SujetSecondaire").GetString(),
-                        Context = root.GetProperty("Context").GetString(),
+                        SujetPrincipal = new List<String>(),
+                        SujetSecondaire = new List<String>(),
+                        Context = new List<String>(),
                     },
                 };
+                foreach (JsonElement item in root.GetProperty("DataRename").GetProperty("SujetPrincipal").EnumerateArray())
+                {
+                    this.data.DataRename.SujetPrincipal.Add(item.GetString());
+                }
+                foreach (JsonElement item in root.GetProperty("DataRename").GetProperty("SujetSecondaire").EnumerateArray())
+                {
+                    this.data.DataRename.SujetSecondaire.Add(item.GetString());
+                }
+                foreach (JsonElement item in root.GetProperty("DataRename").GetProperty("Context").EnumerateArray())
+                {
+                    this.data.DataRename.Context.Add(item.GetString());
+                }
             }
         }
 

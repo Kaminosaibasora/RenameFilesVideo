@@ -26,18 +26,18 @@ namespace RenameFilesVideo
             manageConfig = new ManageConfig();
 
             // ------------ INIT COMPOSANT ------------
-            videoReader.DocumentText = $@"
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Video Player</title>
-                    <style> html {{ background-color : black; color : white; }} </style>
-                </head>
-                <body style='margin: 0; padding: 0;'>
-                    <p>Sélectionnez une vidéo</p>
-                </body>
-                </html>
-            ";
+            //videoReader.DocumentText = $@"
+            //    <!DOCTYPE html>
+            //    <html>
+            //    <head>
+            //        <title>Video Player</title>
+            //        <style> html {{ background-color : black; color : white; }} </style>
+            //    </head>
+            //    <body style='margin: 0; padding: 0;'>
+            //        <p>Sélectionnez une vidéo</p>
+            //    </body>
+            //    </html>
+            //";
             // https://github.com/adamfisher/Xamarin.Forms.VideoPlayer
 
             // ------------ LOAD DATA ------------
@@ -84,6 +84,7 @@ namespace RenameFilesVideo
             if (result == DialogResult.OK)
             {
                 manageFiles.folder = folderBrowserDialog.SelectedPath;
+                listFiles.Items.Clear();
                 foreach( string file in manageFiles.getFilesNames() ) {
                     listFiles.Items.Add(file);
                 }
@@ -95,22 +96,9 @@ namespace RenameFilesVideo
             manageFiles.file = listFiles.SelectedItem.ToString();
             video_path = manageFiles.getFullPathFile();
             Console.WriteLine(video_path);
-            videoReader.DocumentText = $@"
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Video Player</title>
-                    <style> html {{ background-color : black; color : white; }} </style>
-                </head>
-                <body style='margin: 0; padding: 0;'>
-                    <p>video : {video_path}</p>
-                    <video width='800' height='450' controls>
-                        <source src='{video_path}' type='video/mp4'>
-                        Your browser does not support the video tag.
-                    </video>
-                </body>
-                </html>
-            ";
+            videoPlayer.URL = video_path;
+            videoPlayer.Ctlcontrols.play();
+            this.Text = manageFiles.file;
         }
 
         private void AddSP(object sender, EventArgs e)

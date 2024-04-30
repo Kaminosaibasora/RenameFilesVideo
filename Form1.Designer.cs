@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.automaticSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -51,12 +52,13 @@
             this.listSujetP = new System.Windows.Forms.ListBox();
             this.labelSujet = new System.Windows.Forms.Label();
             this.buttonValidRename = new System.Windows.Forms.Button();
-            this.videoReader = new System.Windows.Forms.WebBrowser();
             this.labelNomTemp = new System.Windows.Forms.Label();
+            this.videoPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.menuStrip1.SuspendLayout();
             this.RenameBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetS)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetP)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoPlayer)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -287,15 +289,6 @@
             this.buttonValidRename.Text = "Rename";
             this.buttonValidRename.UseVisualStyleBackColor = true;
             // 
-            // videoReader
-            // 
-            this.videoReader.Location = new System.Drawing.Point(294, 27);
-            this.videoReader.MinimumSize = new System.Drawing.Size(20, 20);
-            this.videoReader.Name = "videoReader";
-            this.videoReader.ScrollBarsEnabled = false;
-            this.videoReader.Size = new System.Drawing.Size(752, 282);
-            this.videoReader.TabIndex = 4;
-            // 
             // labelNomTemp
             // 
             this.labelNomTemp.AutoSize = true;
@@ -304,13 +297,22 @@
             this.labelNomTemp.Size = new System.Drawing.Size(0, 13);
             this.labelNomTemp.TabIndex = 5;
             // 
+            // videoPlayer
+            // 
+            this.videoPlayer.Enabled = true;
+            this.videoPlayer.Location = new System.Drawing.Point(300, 27);
+            this.videoPlayer.Name = "videoPlayer";
+            this.videoPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoPlayer.OcxState")));
+            this.videoPlayer.Size = new System.Drawing.Size(746, 282);
+            this.videoPlayer.TabIndex = 6;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 614);
+            this.Controls.Add(this.videoPlayer);
             this.Controls.Add(this.labelNomTemp);
-            this.Controls.Add(this.videoReader);
             this.Controls.Add(this.RenameBox);
             this.Controls.Add(this.listFiles);
             this.Controls.Add(this.chooseFolder);
@@ -325,6 +327,7 @@
             this.RenameBox.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetS)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetP)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.videoPlayer)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -355,8 +358,8 @@
         private System.Windows.Forms.ListBox listSujetP;
         private System.Windows.Forms.Label labelSujet;
         private System.Windows.Forms.Button buttonValidRename;
-        private System.Windows.Forms.WebBrowser videoReader;
         private System.Windows.Forms.Label labelNomTemp;
+        private AxWMPLib.AxWindowsMediaPlayer videoPlayer;
     }
 }
 
