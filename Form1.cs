@@ -18,6 +18,11 @@ namespace RenameFilesVideo
         private ManageConfig manageConfig;
         public string video_path = "";
 
+        /// <summary>
+        /// TODO : gestion des menus
+        /// TODO : suppression de masse selon la durée
+        /// TODO : Suppression des tags via double clique
+        /// </summary>
         public Form1()
         {
             InitializeComponent();
@@ -83,6 +88,24 @@ namespace RenameFilesVideo
         }
 
         /// <summary>
+        /// Choisi un fichier parmi la liste affichée et lance la lecture de la vidéo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChooseFile(object sender, EventArgs e)
+        {
+            if(listFiles.SelectedIndex != -1)
+            {
+                manageFiles.file = listFiles.SelectedItem.ToString();
+                video_path = manageFiles.getFullPathFile();
+                Console.WriteLine(video_path);
+                videoPlayer.URL = video_path;
+                videoPlayer.Ctlcontrols.play();
+                this.Text = manageFiles.file;
+            }
+        }
+
+        /// <summary>
         /// Lance la sauvegarde de données lors de la fermeture du programme.
         /// </summary>
         /// <param name="sender"></param>
@@ -104,6 +127,44 @@ namespace RenameFilesVideo
                 listC.Add(s);
             }
             manageConfig.SaveConfig(manageFiles.folder, manageFiles.file, listSP, listSS, listC);
+        }
+
+        /// <summary>
+        /// Suppression de toutes les vidéos trop courtes.
+        /// TODO : à revoir.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            manageFiles.DeleteFiles(1, videoPlayer);
+        }
+
+        /// <summary>
+        /// Suppression après confirmation du fichier.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Voulez-vous Supprimer ce fichier ?", "Confirmation", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
+            {
+                videoPlayer.Ctlcontrols.stop();
+                listFiles.SelectedIndex = -1;
+                listFiles.Items.Remove(manageFiles.file);
+                manageFiles.DeleteFile();
+            }
+        }
+
+        /// <summary>
+        /// Renommage du fichier en cours.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void buttonValidRename_Click(object sender, EventArgs e)
+        {
+            listFiles.Items[listFiles.SelectedIndex] = manageFiles.Rename(labelNomTemp.Text);
         }
 
         // ===========================================================================================================================
@@ -151,22 +212,6 @@ namespace RenameFilesVideo
                 addContextBox.Text = "";
             }
         }
-
-        /// <summary>
-        /// Choisi un fichier parmi la liste affichée et lance la lecture de la vidéo.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void ChooseFile(object sender, EventArgs e)
-        {
-            manageFiles.file = listFiles.SelectedItem.ToString();
-            video_path = manageFiles.getFullPathFile();
-            Console.WriteLine(video_path);
-            videoPlayer.URL = video_path;
-            videoPlayer.Ctlcontrols.play();
-            this.Text = manageFiles.file;
-        }
-
 
         /// <summary>
         /// Sélectionne un sujet principal.
@@ -221,7 +266,15 @@ namespace RenameFilesVideo
         /// <param name="e"></param>
         private void listContext_SelectedIndexChanged(object sender, EventArgs e)
         {
-            labelNomTemp.Text += $"_{listContext.SelectedItem.ToString()}";
+            try
+            {
+                labelNomTemp.Text += $"_{listContext.SelectedItem.ToString()}";
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
+
     }
 }

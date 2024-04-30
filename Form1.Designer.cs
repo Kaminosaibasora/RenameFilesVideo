@@ -32,6 +32,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.automaticSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseFolder = new System.Windows.Forms.Button();
             this.listFiles = new System.Windows.Forms.ListBox();
             this.RenameBox = new System.Windows.Forms.GroupBox();
@@ -54,6 +55,7 @@
             this.buttonValidRename = new System.Windows.Forms.Button();
             this.labelNomTemp = new System.Windows.Forms.Label();
             this.videoPlayer = new AxWMPLib.AxWindowsMediaPlayer();
+            this.deleteButton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             this.RenameBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetS)).BeginInit();
@@ -80,9 +82,18 @@
             // 
             // automaticSelectedToolStripMenuItem
             // 
+            this.automaticSelectedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem});
             this.automaticSelectedToolStripMenuItem.Name = "automaticSelectedToolStripMenuItem";
             this.automaticSelectedToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
             this.automaticSelectedToolStripMenuItem.Text = "Automatic Selected";
+            // 
+            // suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem
+            // 
+            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Name = "suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem";
+            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Size = new System.Drawing.Size(396, 22);
+            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Text = "Suppression automatique des vidéos de moins de 1 secondes";
+            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Click += new System.EventHandler(this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem_Click);
             // 
             // chooseFolder
             // 
@@ -96,15 +107,19 @@
             // 
             // listFiles
             // 
+            this.listFiles.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listFiles.FormattingEnabled = true;
             this.listFiles.Location = new System.Drawing.Point(12, 56);
             this.listFiles.Name = "listFiles";
-            this.listFiles.Size = new System.Drawing.Size(276, 485);
+            this.listFiles.Size = new System.Drawing.Size(276, 550);
             this.listFiles.TabIndex = 2;
             this.listFiles.SelectedIndexChanged += new System.EventHandler(this.ChooseFile);
             // 
             // RenameBox
             // 
+            this.RenameBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.RenameBox.Controls.Add(this.nbSujetS);
             this.RenameBox.Controls.Add(this.nbSujetP);
             this.RenameBox.Controls.Add(this.labelContext);
@@ -122,12 +137,11 @@
             this.RenameBox.Controls.Add(this.listSujetP);
             this.RenameBox.Controls.Add(this.labelSujet);
             this.RenameBox.Controls.Add(this.buttonValidRename);
-            this.RenameBox.Location = new System.Drawing.Point(294, 336);
+            this.RenameBox.Location = new System.Drawing.Point(294, 397);
             this.RenameBox.Name = "RenameBox";
             this.RenameBox.Size = new System.Drawing.Size(752, 205);
             this.RenameBox.TabIndex = 3;
             this.RenameBox.TabStop = false;
-            this.RenameBox.Text = "groupBox1";
             // 
             // nbSujetS
             // 
@@ -157,12 +171,13 @@
             // 
             // labelContext
             // 
-            this.labelContext.AutoSize = true;
-            this.labelContext.Location = new System.Drawing.Point(424, 16);
+            this.labelContext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.labelContext.Location = new System.Drawing.Point(496, 16);
             this.labelContext.Name = "labelContext";
-            this.labelContext.Size = new System.Drawing.Size(43, 13);
+            this.labelContext.Size = new System.Drawing.Size(141, 16);
             this.labelContext.TabIndex = 14;
             this.labelContext.Text = "Context";
+            this.labelContext.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelNBSS
             // 
@@ -194,7 +209,8 @@
             // 
             // buttonAddContext
             // 
-            this.buttonAddContext.Location = new System.Drawing.Point(530, 173);
+            this.buttonAddContext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.buttonAddContext.Location = new System.Drawing.Point(602, 173);
             this.buttonAddContext.Name = "buttonAddContext";
             this.buttonAddContext.Size = new System.Drawing.Size(35, 23);
             this.buttonAddContext.TabIndex = 10;
@@ -204,15 +220,17 @@
             // 
             // addContextBox
             // 
-            this.addContextBox.Location = new System.Drawing.Point(424, 176);
+            this.addContextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.addContextBox.Location = new System.Drawing.Point(496, 176);
             this.addContextBox.Name = "addContextBox";
             this.addContextBox.Size = new System.Drawing.Size(100, 20);
             this.addContextBox.TabIndex = 9;
             // 
             // listContext
             // 
+            this.listContext.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Left | System.Windows.Forms.AnchorStyles.Right)));
             this.listContext.FormattingEnabled = true;
-            this.listContext.Location = new System.Drawing.Point(424, 35);
+            this.listContext.Location = new System.Drawing.Point(496, 35);
             this.listContext.Name = "listContext";
             this.listContext.Size = new System.Drawing.Size(141, 134);
             this.listContext.TabIndex = 8;
@@ -239,6 +257,7 @@
             // 
             // buttonAddSujetP
             // 
+            this.buttonAddSujetP.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.buttonAddSujetP.Location = new System.Drawing.Point(112, 176);
             this.buttonAddSujetP.Name = "buttonAddSujetP";
             this.buttonAddSujetP.Size = new System.Drawing.Size(38, 23);
@@ -256,6 +275,7 @@
             // 
             // addSujetPBox
             // 
+            this.addSujetPBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.addSujetPBox.Location = new System.Drawing.Point(6, 179);
             this.addSujetPBox.Name = "addSujetPBox";
             this.addSujetPBox.Size = new System.Drawing.Size(100, 20);
@@ -263,6 +283,8 @@
             // 
             // listSujetP
             // 
+            this.listSujetP.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.listSujetP.FormattingEnabled = true;
             this.listSujetP.Location = new System.Drawing.Point(6, 35);
             this.listSujetP.Name = "listSujetP";
@@ -272,45 +294,66 @@
             // 
             // labelSujet
             // 
-            this.labelSujet.AutoSize = true;
-            this.labelSujet.Location = new System.Drawing.Point(21, 19);
+            this.labelSujet.Location = new System.Drawing.Point(6, 16);
             this.labelSujet.Name = "labelSujet";
-            this.labelSujet.Size = new System.Drawing.Size(74, 13);
+            this.labelSujet.Size = new System.Drawing.Size(144, 16);
             this.labelSujet.TabIndex = 1;
             this.labelSujet.Text = "Sujet Principal";
-            this.labelSujet.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.labelSujet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // buttonValidRename
             // 
-            this.buttonValidRename.Location = new System.Drawing.Point(625, 19);
+            this.buttonValidRename.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonValidRename.Location = new System.Drawing.Point(671, 16);
             this.buttonValidRename.Name = "buttonValidRename";
             this.buttonValidRename.Size = new System.Drawing.Size(75, 180);
             this.buttonValidRename.TabIndex = 0;
             this.buttonValidRename.Text = "Rename";
             this.buttonValidRename.UseVisualStyleBackColor = true;
+            this.buttonValidRename.Click += new System.EventHandler(this.buttonValidRename_Click);
             // 
             // labelNomTemp
             // 
-            this.labelNomTemp.AutoSize = true;
-            this.labelNomTemp.Location = new System.Drawing.Point(550, 312);
+            this.labelNomTemp.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.labelNomTemp.Location = new System.Drawing.Point(291, 373);
             this.labelNomTemp.Name = "labelNomTemp";
-            this.labelNomTemp.Size = new System.Drawing.Size(0, 13);
+            this.labelNomTemp.Size = new System.Drawing.Size(640, 21);
             this.labelNomTemp.TabIndex = 5;
+            this.labelNomTemp.Text = "title";
+            this.labelNomTemp.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // videoPlayer
             // 
+            this.videoPlayer.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.videoPlayer.Enabled = true;
-            this.videoPlayer.Location = new System.Drawing.Point(300, 27);
+            this.videoPlayer.Location = new System.Drawing.Point(294, 27);
             this.videoPlayer.Name = "videoPlayer";
             this.videoPlayer.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("videoPlayer.OcxState")));
-            this.videoPlayer.Size = new System.Drawing.Size(746, 282);
+            this.videoPlayer.Size = new System.Drawing.Size(752, 343);
             this.videoPlayer.TabIndex = 6;
+            // 
+            // deleteButton
+            // 
+            this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.deleteButton.Location = new System.Drawing.Point(937, 373);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(109, 23);
+            this.deleteButton.TabIndex = 7;
+            this.deleteButton.Text = "Delete Video";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1058, 614);
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.videoPlayer);
             this.Controls.Add(this.labelNomTemp);
             this.Controls.Add(this.RenameBox);
@@ -360,6 +403,8 @@
         private System.Windows.Forms.Button buttonValidRename;
         private System.Windows.Forms.Label labelNomTemp;
         private AxWMPLib.AxWindowsMediaPlayer videoPlayer;
+        private System.Windows.Forms.ToolStripMenuItem suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem;
+        private System.Windows.Forms.Button deleteButton;
     }
 }
 

@@ -42,22 +42,44 @@ namespace RenameFilesVideo.objects{
         /// Renome un fichier selon le nom saisi.
         /// </summary>
         /// <param name="name">nouveau nom du fichier.</param>
-        public void Rename(string name) {
+        public String Rename(string name) {
             try
             {
-                File.Move(getFullPathFile(), folder + @"\" + name );
+                int id_alea = new Random().Next(999999);
+                File.Move(getFullPathFile(), $@"{folder}\{name}_{id_alea}.mp4" );
                 this.file = "";
+                return $@"{name}_{id_alea}.mp4";
             }
             catch (Exception e)
             {
                 Console.WriteLine("Une erreur s'est produite lors du renommage du fichier : " + e.Message);
             }
+            return "";
         }
 
         /// <summary>
         /// Parcourt la liste des fichiers et supprime tous ceux qui ne correspondent pas au critère.
+        /// TODO : trouver un moyen efficace de trouver la durée d'une vidéo.
         /// </summary>
         /// <param name="timeMinimum">nombre de seconde minimum pour échapper à la suppression.</param>
-        public void DeleteFiles(int timeMinimum) { } 
+        public void DeleteFiles(int timeMinimum, AxWMPLib.AxWindowsMediaPlayer player) {
+            List<string> files = getFilesNames();
+            foreach (string file in files)
+            {
+                string path = this.folder + @"\" + file;
+                player.URL = path;
+                // player.Ctlcontrols.play();
+                player.Ctlcontrols.pause();
+                double duration = player.currentMedia.duration;
+                Console.WriteLine(duration.ToString());
+                break;
+            }
+        }
+
+        public void DeleteFile()
+        {
+            File.Delete(this.folder + @"\" + file);
+            this.file = "";
+        }
     }
 }
