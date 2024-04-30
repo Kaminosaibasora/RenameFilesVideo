@@ -11,6 +11,10 @@ namespace RenameFilesVideo.objects
         public string pathConfig;
         public dynamic data;
 
+        /// <summary>
+        /// Initialise le composant et lance le chargement de la configuration si elle existe.
+        /// </summary>
+        /// <param name="pathConfig">Chemin vers le fichier de configuration au format JSON.</param>
         public ManageConfig(string pathConfig = "./RenameConfig.json")
         {
             this.pathConfig = pathConfig;
@@ -23,6 +27,9 @@ namespace RenameFilesVideo.objects
             }
         }
 
+        /// <summary>
+        /// Charge la configuration existante dans la variable data.
+        /// </summary>
         public void LoadingConfig()
         {
             string jsonString = File.ReadAllText(this.pathConfig);
@@ -57,6 +64,14 @@ namespace RenameFilesVideo.objects
             }
         }
 
+        /// <summary>
+        /// Sauvegarde les données dans le fichier de configuration JSON.
+        /// </summary>
+        /// <param name="folder">Dossier ouvert dans l'application</param>
+        /// <param name="file">fichier en cours de traitement</param>
+        /// <param name="listSP">liste des sujets principaux</param>
+        /// <param name="listSS">liste des sujets secondaires</param>
+        /// <param name="listC">liste des contexts.</param>
         public void SaveConfig(string folder, string file, List<String> listSP, List<String> listSS, List<String> listC)
         {
             var configObject = new

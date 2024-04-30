@@ -16,11 +16,13 @@ namespace RenameFilesVideo.objects{
             file = "";
         }
 
+        /// <summary>
+        /// Obtient le nom de tous les fichiers contenu dans le dossier sélectionné (folder).
+        /// </summary>
+        /// <returns>liste de noms de fichiers.</returns>
         public List<string> getFilesNames() { 
             List<string> listeFiles = new List<string>();
             string[] files = Directory.GetFiles(folder);
-
-            // Affichez chaque fichier
             foreach (string file in files)
             {
                 listeFiles.Add(Path.GetFileName(file));
@@ -28,14 +30,23 @@ namespace RenameFilesVideo.objects{
             return listeFiles;
         }
 
+        /// <summary>
+        /// Retourne le chemin complet du fichier sélectionné (file).
+        /// </summary>
+        /// <returns>Chemin Complet vers file.</returns>
         public string getFullPathFile() { 
             return folder + @"\" + file; 
         }
 
+        /// <summary>
+        /// Renome un fichier selon le nom saisi.
+        /// </summary>
+        /// <param name="name">nouveau nom du fichier.</param>
         public void Rename(string name) {
             try
             {
                 File.Move(getFullPathFile(), folder + @"\" + name );
+                this.file = "";
             }
             catch (Exception e)
             {
@@ -43,6 +54,10 @@ namespace RenameFilesVideo.objects{
             }
         }
 
-        public void DeleteFiles() { } 
+        /// <summary>
+        /// Parcourt la liste des fichiers et supprime tous ceux qui ne correspondent pas au critère.
+        /// </summary>
+        /// <param name="timeMinimum">nombre de seconde minimum pour échapper à la suppression.</param>
+        public void DeleteFiles(int timeMinimum) { } 
     }
 }

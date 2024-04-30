@@ -26,19 +26,6 @@ namespace RenameFilesVideo
             manageConfig = new ManageConfig();
 
             // ------------ INIT COMPOSANT ------------
-            //videoReader.DocumentText = $@"
-            //    <!DOCTYPE html>
-            //    <html>
-            //    <head>
-            //        <title>Video Player</title>
-            //        <style> html {{ background-color : black; color : white; }} </style>
-            //    </head>
-            //    <body style='margin: 0; padding: 0;'>
-            //        <p>Sélectionnez une vidéo</p>
-            //    </body>
-            //    </html>
-            //";
-            // https://github.com/adamfisher/Xamarin.Forms.VideoPlayer
 
             // ------------ LOAD DATA ------------
 
@@ -46,6 +33,9 @@ namespace RenameFilesVideo
             
         }
 
+        /// <summary>
+        /// Charge les données sauvegardées dans l'interface.
+        /// </summary>
         private void LoadData()
         {
             if (manageConfig.data != null)
@@ -86,79 +76,17 @@ namespace RenameFilesVideo
                 manageFiles.folder = folderBrowserDialog.SelectedPath;
                 listFiles.Items.Clear();
                 foreach( string file in manageFiles.getFilesNames() ) {
+                    // TODO : uniquement MP4
                     listFiles.Items.Add(file);
                 }
             }
         }
 
-        private void ChooseFile(object sender, EventArgs e)
-        {
-            manageFiles.file = listFiles.SelectedItem.ToString();
-            video_path = manageFiles.getFullPathFile();
-            Console.WriteLine(video_path);
-            videoPlayer.URL = video_path;
-            videoPlayer.Ctlcontrols.play();
-            this.Text = manageFiles.file;
-        }
-
-        private void AddSP(object sender, EventArgs e)
-        {
-            if (addSujetPBox.Text != "")
-            {
-                listSujetP.Items.Add(addSujetPBox.Text);
-                addSujetPBox.Text = "";
-            }
-        }
-
-        private void AddSS(object sender, EventArgs e)
-        {
-            if (addSujetSBox.Text != "")
-            {
-                listSujetS.Items.Add(addSujetSBox.Text);
-                addSujetSBox.Text = "";
-            }
-        }
-
-        private void AddContext(object sender, EventArgs e)
-        {
-            if (addContextBox.Text != "")
-            {
-                listContext.Items.Add(addContextBox.Text);
-                addContextBox.Text = "";
-            }
-        }
-
-        private void listSujetP_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
-        }
-
-        private void nbSujetP_ValueChanged(object sender, EventArgs e)
-        {
-            if (listSujetP.SelectedItem != null)
-            {
-                labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
-            }
-        }
-
-        private void listSujetS_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}_{listSujetS.SelectedItem.ToString()}_{nbSujetS.Value}";
-        }
-
-        private void nbSujetS_ValueChanged(object sender, EventArgs e)
-        {
-            if (listSujetP.SelectedItem != null && listSujetS.SelectedItem != null)
-            {
-                labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}_{listSujetS.SelectedItem.ToString()}_{nbSujetS.Value}";
-            }
-        }
-
-        private void listContext_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            labelNomTemp.Text += $"_{listContext.SelectedItem.ToString()}";
-        }
-
+        /// <summary>
+        /// Lance la sauvegarde de données lors de la fermeture du programme.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
             List<String> listSP = new List<String>();
@@ -176,6 +104,124 @@ namespace RenameFilesVideo
                 listC.Add(s);
             }
             manageConfig.SaveConfig(manageFiles.folder, manageFiles.file, listSP, listSS, listC);
+        }
+
+        // ===========================================================================================================================
+        // **************************************************** I N T E R F A C E ****************************************************
+        // ===========================================================================================================================
+
+        /// <summary>
+        /// Ajoute un Sujet Principal à la liste.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddSP(object sender, EventArgs e)
+        {
+            if (addSujetPBox.Text != "")
+            {
+                listSujetP.Items.Add(addSujetPBox.Text);
+                addSujetPBox.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Ajoute un Sujet Secondaire à la liste.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddSS(object sender, EventArgs e)
+        {
+            if (addSujetSBox.Text != "")
+            {
+                listSujetS.Items.Add(addSujetSBox.Text);
+                addSujetSBox.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Ajoute un Context à la liste.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddContext(object sender, EventArgs e)
+        {
+            if (addContextBox.Text != "")
+            {
+                listContext.Items.Add(addContextBox.Text);
+                addContextBox.Text = "";
+            }
+        }
+
+        /// <summary>
+        /// Choisi un fichier parmi la liste affichée et lance la lecture de la vidéo.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ChooseFile(object sender, EventArgs e)
+        {
+            manageFiles.file = listFiles.SelectedItem.ToString();
+            video_path = manageFiles.getFullPathFile();
+            Console.WriteLine(video_path);
+            videoPlayer.URL = video_path;
+            videoPlayer.Ctlcontrols.play();
+            this.Text = manageFiles.file;
+        }
+
+
+        /// <summary>
+        /// Sélectionne un sujet principal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listSujetP_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
+        }
+
+        /// <summary>
+        /// Sélectionne un nombre associé au sujet principal.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void nbSujetP_ValueChanged(object sender, EventArgs e)
+        {
+            if (listSujetP.SelectedItem != null)
+            {
+                labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
+            }
+        }
+
+        /// <summary>
+        /// Sélectionne un sujet secondaire.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listSujetS_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}_{listSujetS.SelectedItem.ToString()}_{nbSujetS.Value}";
+        }
+
+        /// <summary>
+        /// Sélectionne un nombre associé au sujet secondaire.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void nbSujetS_ValueChanged(object sender, EventArgs e)
+        {
+            if (listSujetP.SelectedItem != null && listSujetS.SelectedItem != null)
+            {
+                labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}_{listSujetS.SelectedItem.ToString()}_{nbSujetS.Value}";
+            }
+        }
+
+        /// <summary>
+        /// Sélectionne un context.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listContext_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            labelNomTemp.Text += $"_{listContext.SelectedItem.ToString()}";
         }
     }
 }
