@@ -22,7 +22,7 @@ namespace RenameFilesVideo.objects{
         /// <returns>liste de noms de fichiers.</returns>
         public List<string> getFilesNames() { 
             List<string> listeFiles = new List<string>();
-            string[] files = Directory.GetFiles(folder);
+            string[] files = Directory.GetFiles(folder, "*.mp4");
             foreach (string file in files)
             {
                 listeFiles.Add(Path.GetFileName(file));

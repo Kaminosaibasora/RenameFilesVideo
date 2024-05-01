@@ -56,6 +56,7 @@
             this.labelNomTemp = new System.Windows.Forms.Label();
             this.videoPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.deleteButton = new System.Windows.Forms.Button();
+            this.chargerConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.RenameBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetS)).BeginInit();
@@ -76,6 +77,8 @@
             // 
             // menuToolStripMenuItem
             // 
+            this.menuToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.chargerConfigurationToolStripMenuItem});
             this.menuToolStripMenuItem.Name = "menuToolStripMenuItem";
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
@@ -235,6 +238,7 @@
             this.listContext.Size = new System.Drawing.Size(141, 134);
             this.listContext.TabIndex = 8;
             this.listContext.SelectedIndexChanged += new System.EventHandler(this.listContext_SelectedIndexChanged);
+            this.listContext.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listContext_MouseDoubleClick);
             // 
             // listSujetS
             // 
@@ -244,6 +248,7 @@
             this.listSujetS.Size = new System.Drawing.Size(141, 134);
             this.listSujetS.TabIndex = 7;
             this.listSujetS.SelectedIndexChanged += new System.EventHandler(this.listSujetS_SelectedIndexChanged);
+            this.listSujetS.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listSujetS_MouseDoubleClick);
             // 
             // buttonAddSujetS
             // 
@@ -291,6 +296,7 @@
             this.listSujetP.Size = new System.Drawing.Size(144, 134);
             this.listSujetP.TabIndex = 2;
             this.listSujetP.SelectedIndexChanged += new System.EventHandler(this.listSujetP_SelectedIndexChanged);
+            this.listSujetP.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listSujetP_MouseDoubleClick);
             // 
             // labelSujet
             // 
@@ -347,6 +353,13 @@
             this.deleteButton.Text = "Delete Video";
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
+            // chargerConfigurationToolStripMenuItem
+            // 
+            this.chargerConfigurationToolStripMenuItem.Name = "chargerConfigurationToolStripMenuItem";
+            this.chargerConfigurationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.chargerConfigurationToolStripMenuItem.Text = "Charger configuration";
+            this.chargerConfigurationToolStripMenuItem.Click += new System.EventHandler(this.chargerConfigurationToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -405,6 +418,7 @@
         private AxWMPLib.AxWindowsMediaPlayer videoPlayer;
         private System.Windows.Forms.ToolStripMenuItem suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem;
         private System.Windows.Forms.Button deleteButton;
+        private System.Windows.Forms.ToolStripMenuItem chargerConfigurationToolStripMenuItem;
     }
 }
 

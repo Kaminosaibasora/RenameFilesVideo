@@ -19,9 +19,7 @@ namespace RenameFilesVideo
         public string video_path = "";
 
         /// <summary>
-        /// TODO : gestion des menus
         /// TODO : suppression de masse selon la durée
-        /// TODO : Suppression des tags via double clique
         /// </summary>
         public Form1()
         {
@@ -81,7 +79,6 @@ namespace RenameFilesVideo
                 manageFiles.folder = folderBrowserDialog.SelectedPath;
                 listFiles.Items.Clear();
                 foreach( string file in manageFiles.getFilesNames() ) {
-                    // TODO : uniquement MP4
                     listFiles.Items.Add(file);
                 }
             }
@@ -167,6 +164,24 @@ namespace RenameFilesVideo
             listFiles.Items[listFiles.SelectedIndex] = manageFiles.Rename(labelNomTemp.Text);
         }
 
+        /// <summary>
+        /// Suppression d'un tag après validation d'un utilisateur.
+        /// </summary>
+        /// <param name="liste">ListBox contenant un tag.</param>
+        private void DeleteTag(ListBox liste)
+        {
+            if (liste.SelectedIndex != -1)
+            {
+                DialogResult result = MessageBox.Show($"Voulez-vous Supprimer ce tag : {liste.SelectedItem.ToString()} ?", "Confirmation", MessageBoxButtons.OKCancel);
+                if (result == DialogResult.OK)
+                {
+                    int index = liste.SelectedIndex;
+                    liste.SelectedIndex = -1;
+                    liste.Items.RemoveAt(index);
+                }
+            }
+        }
+
         // ===========================================================================================================================
         // **************************************************** I N T E R F A C E ****************************************************
         // ===========================================================================================================================
@@ -220,7 +235,10 @@ namespace RenameFilesVideo
         /// <param name="e"></param>
         private void listSujetP_SelectedIndexChanged(object sender, EventArgs e)
         {
-            labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
+            if (listSujetP.SelectedIndex != -1)
+            {
+                labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
+            }
         }
 
         /// <summary>
@@ -230,7 +248,7 @@ namespace RenameFilesVideo
         /// <param name="e"></param>
         private void nbSujetP_ValueChanged(object sender, EventArgs e)
         {
-            if (listSujetP.SelectedItem != null)
+            if (listSujetP.SelectedIndex != -1)
             {
                 labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}";
             }
@@ -243,7 +261,10 @@ namespace RenameFilesVideo
         /// <param name="e"></param>
         private void listSujetS_SelectedIndexChanged(object sender, EventArgs e)
         {
-            labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}_{listSujetS.SelectedItem.ToString()}_{nbSujetS.Value}";
+            if (listSujetS.SelectedIndex != -1 && listSujetP.SelectedIndex != -1)
+            {
+                labelNomTemp.Text = $"{listSujetP.SelectedItem.ToString()}_{nbSujetP.Value}_{listSujetS.SelectedItem.ToString()}_{nbSujetS.Value}";
+            }
         }
 
         /// <summary>
@@ -268,7 +289,10 @@ namespace RenameFilesVideo
         {
             try
             {
-                labelNomTemp.Text += $"_{listContext.SelectedItem.ToString()}";
+                if(listContext.SelectedIndex != -1)
+                {
+                    labelNomTemp.Text += $"_{listContext.SelectedItem.ToString()}";
+                }
             }
             catch (Exception ex)
             {
@@ -276,5 +300,52 @@ namespace RenameFilesVideo
             }
         }
 
+        /// <summary>
+        /// Suppression d'un tag de Sujet Principal via double clique.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listSujetP_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DeleteTag(listSujetP);
+        }
+
+        /// <summary>
+        /// Suppression d'un tag de Sujet Secondaire via double clique.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listSujetS_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DeleteTag(listSujetS);
+        }
+
+        /// <summary>
+        /// Suppression d'un tag de Context via double clique.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void listContext_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            DeleteTag(listContext);
+        }
+
+        /// <summary>
+        /// Chargement d'une configuration existante.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void chargerConfigurationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Fichiers JSON (*.json)|*.json";
+            openFileDialog.Title = "Sélectionner un fichier de configuration JSON";
+            DialogResult result = openFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                manageConfig = new ManageConfig(openFileDialog.FileName);
+                LoadData();
+            }
+        }
     }
 }
