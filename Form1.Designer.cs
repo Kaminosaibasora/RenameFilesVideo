@@ -31,8 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.menuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.automaticSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.chargerConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseFolder = new System.Windows.Forms.Button();
             this.listFiles = new System.Windows.Forms.ListBox();
             this.RenameBox = new System.Windows.Forms.GroupBox();
@@ -56,7 +55,6 @@
             this.labelNomTemp = new System.Windows.Forms.Label();
             this.videoPlayer = new AxWMPLib.AxWindowsMediaPlayer();
             this.deleteButton = new System.Windows.Forms.Button();
-            this.chargerConfigurationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.RenameBox.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nbSujetS)).BeginInit();
@@ -67,8 +65,7 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuToolStripMenuItem,
-            this.automaticSelectedToolStripMenuItem});
+            this.menuToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1058, 24);
@@ -83,20 +80,12 @@
             this.menuToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.menuToolStripMenuItem.Text = "Menu";
             // 
-            // automaticSelectedToolStripMenuItem
+            // chargerConfigurationToolStripMenuItem
             // 
-            this.automaticSelectedToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem});
-            this.automaticSelectedToolStripMenuItem.Name = "automaticSelectedToolStripMenuItem";
-            this.automaticSelectedToolStripMenuItem.Size = new System.Drawing.Size(122, 20);
-            this.automaticSelectedToolStripMenuItem.Text = "Automatic Selected";
-            // 
-            // suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem
-            // 
-            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Name = "suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem";
-            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Size = new System.Drawing.Size(396, 22);
-            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Text = "Suppression automatique des vidéos de moins de 1 secondes";
-            this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem.Click += new System.EventHandler(this.suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem_Click);
+            this.chargerConfigurationToolStripMenuItem.Name = "chargerConfigurationToolStripMenuItem";
+            this.chargerConfigurationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.chargerConfigurationToolStripMenuItem.Text = "Charger configuration";
+            this.chargerConfigurationToolStripMenuItem.Click += new System.EventHandler(this.chargerConfigurationToolStripMenuItem_Click);
             // 
             // chooseFolder
             // 
@@ -354,13 +343,6 @@
             this.deleteButton.UseVisualStyleBackColor = true;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
-            // chargerConfigurationToolStripMenuItem
-            // 
-            this.chargerConfigurationToolStripMenuItem.Name = "chargerConfigurationToolStripMenuItem";
-            this.chargerConfigurationToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
-            this.chargerConfigurationToolStripMenuItem.Text = "Charger configuration";
-            this.chargerConfigurationToolStripMenuItem.Click += new System.EventHandler(this.chargerConfigurationToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -393,7 +375,6 @@
 
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem menuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem automaticSelectedToolStripMenuItem;
         private System.Windows.Forms.Button chooseFolder;
         private System.Windows.Forms.ListBox listFiles;
         private System.Windows.Forms.GroupBox RenameBox;
@@ -416,7 +397,6 @@
         private System.Windows.Forms.Button buttonValidRename;
         private System.Windows.Forms.Label labelNomTemp;
         private AxWMPLib.AxWindowsMediaPlayer videoPlayer;
-        private System.Windows.Forms.ToolStripMenuItem suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem;
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.ToolStripMenuItem chargerConfigurationToolStripMenuItem;
     }

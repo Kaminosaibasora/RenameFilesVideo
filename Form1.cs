@@ -1,12 +1,6 @@
 ﻿using RenameFilesVideo.objects;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RenameFilesVideo
@@ -19,7 +13,6 @@ namespace RenameFilesVideo
         public string video_path = "";
 
         /// <summary>
-        /// TODO : suppression de masse selon la durée
         /// </summary>
         public Form1()
         {
@@ -27,8 +20,6 @@ namespace RenameFilesVideo
             // ------------ INIT ENGINE ------------
             manageFiles = new ManageFiles();
             manageConfig = new ManageConfig();
-
-            // ------------ INIT COMPOSANT ------------
 
             // ------------ LOAD DATA ------------
 
@@ -127,17 +118,6 @@ namespace RenameFilesVideo
         }
 
         /// <summary>
-        /// Suppression de toutes les vidéos trop courtes.
-        /// TODO : à revoir.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            manageFiles.DeleteFiles(1, videoPlayer);
-        }
-
-        /// <summary>
         /// Suppression après confirmation du fichier.
         /// </summary>
         /// <param name="sender"></param>
@@ -180,6 +160,17 @@ namespace RenameFilesVideo
                     liste.Items.RemoveAt(index);
                 }
             }
+        }
+
+        /// <summary>
+        /// Suppression de toutes les vidéos trop courtes.
+        /// fonctionnalité latente.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void suppressionAutomatiqueDesVidéosDeMoinsDe1SecondesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            manageFiles.DeleteFiles(1, videoPlayer);
         }
 
         // ===========================================================================================================================
